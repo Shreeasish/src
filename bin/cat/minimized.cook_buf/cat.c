@@ -138,8 +138,7 @@ cook_buf(FILE *fp)
 	int ch, gobble, line, prev;
 
 	line = gobble = 0;
-  getc(fp);
-	//for (prev = '\n'; (ch = getc(fp)) != EOF; prev = ch) {
+	for (prev = '\n'; (ch = getc(fp)) != EOF; prev = ch) {
 		//if (prev == '\n') {
 		//	//if (sflag) {
 		//	//	//if (ch == '\n') {
@@ -186,7 +185,7 @@ cook_buf(FILE *fp)
 		////}
 		////if (putchar(ch) == EOF)
 		////	break;
-	//}
+	}
 	//if (ferror(fp)) {
 	//	warn("%s", filename);
 	//	rval = 1;
