@@ -1,0 +1,21 @@
+#! /usr/local/bin/zsh
+
+if [[ $# -eq 1 ]] ; then
+    cd $1
+    echo $(pwd)
+else
+  echo No arguments supplied
+  exit 1
+fi
+
+export LLVM_COMPILER=clang
+export CC=wllvm
+export CXX=wllvm++
+find . -name '.*.bc' -or -name '*.bc' | xargs rm
+make clean
+make
+dir=$(basename $(pwd))
+rm -rf ~/shared/$dir
+#find ~/shared/$dir -name '.*.bc' -or -name '*.bc' | xargs rm
+mkdir ~/shared/$dir
+find . -name '.*.bc' | xargs -I{} cp {} ~/shared/$dir
