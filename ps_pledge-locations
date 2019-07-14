@@ -1,0 +1,46 @@
+bin/ps/ps.1
+345:PS_PLEDGE         0x100000 process has called pledge(2)
+
+bin/ps/print.c
+280:	if (kp->p_psflags & PS_PLEDGE)
+
+sys/kern/uipc_syscalls.c
+171:	if (error && p->p_p->ps_flags & PS_PLEDGE)
+
+sys/kern/kern_fork.c
+240:	    (PS_SUGID | PS_SUGIDEXEC | PS_PLEDGE | PS_EXECPLEDGE | PS_WXNEEDED);
+
+sys/kern/kern_event.c
+214:	if ((curproc->p_p->ps_flags & PS_PLEDGE) &&
+215:	    (curproc->p_p->ps_pledge & PLEDGE_PROC) == 0)
+
+sys/kern/vfs_syscalls.c
+924:	if ((p->p_p->ps_flags & PS_PLEDGE))
+1303:		if ((p->p_p->ps_flags & PS_PLEDGE))
+2051:	if ((p->p_p->ps_flags & PS_PLEDGE))
+2092:	if ((p->p_p->ps_flags & PS_PLEDGE))
+
+sys/kern/kern_descrip.c
+810:			if (ISSET(p->p_p->ps_flags, PS_PLEDGE))
+1308:	if (ISSET(p->p_p->ps_flags, PS_PLEDGE))
+
+sys/kern/kern_exec.c
+528:		pr->ps_pledge = pr->ps_execpledge;
+529:		atomic_setbits_int(&pr->ps_flags, PS_PLEDGE);
+531:		atomic_clearbits_int(&pr->ps_flags, PS_PLEDGE);
+532:		pr->ps_pledge = 0;
+
+sys/arch/amd64/amd64/vmm.c
+485:		if (p->p_p->ps_pledge & PLEDGE_PROC)
+734:			if (((p->p_p->ps_pledge &
+
+sys/arch/i386/i386/vmm.c
+456:		if (p->p_p->ps_pledge & PLEDGE_PROC)
+705:			if (((p->p_p->ps_pledge &
+
+sys/sys/proc.h
+221:	uint64_t ps_pledge;
+263:#define	PS_PLEDGE	0x00100000	/* Has called pledge(2) */
+
+sys/sys/syscall_mi.h
+70:	pledged = (p->p_p->ps_flags & PS_PLEDGE);

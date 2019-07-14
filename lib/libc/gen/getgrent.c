@@ -79,7 +79,7 @@ static int	__ypcurrentlen;
 #endif
 
 struct group *
-_getgrent_yp(int *foundyp)
+    _getgrent_yp(int *foundyp)
 {
 	struct group *p_gr = (struct group*)_THREAD_PRIVATE(gr, _gr_group, NULL);
 	struct group_storage *gs = (struct group_storage *)_THREAD_PRIVATE(gr_storage,

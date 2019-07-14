@@ -1,0 +1,6 @@
+#! /bin/bash
+while read line; do
+	if [[ $(ag "[^A-Z|a-z]$line\(" "$1"/) ]]; then
+		echo "$line"
+	fi
+done < /home/shreeasish/pledgerize-reboot/hoisting/nick-dataflow/libc-wp/libc-function-names-sorted

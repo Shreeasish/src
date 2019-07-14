@@ -1,0 +1,4 @@
+#! /bin/bash
+while read line; do
+	ag "[^A-Z|a-z]$line\(" ./
+done < /home/shreeasish/pledgerize-reboot/hoisting/nick-dataflow/libc-wp/libc-function-names

@@ -1,0 +1,4 @@
+usr.bin/dc/dc.c:74:	if (argc == 0) {
+usr.bin/dc/dc.c:75:		if (pledge("stdio", NULL) == -1)
+usr.bin/openssl/ciphers.c:84:	if (single_execution) {
+usr.bin/openssl/ciphers.c:85:		if (pledge("stdio rpath", NULL) == -1) {
