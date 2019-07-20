@@ -16,6 +16,7 @@ make clean
 make
 dir=$(basename $(pwd))
 rm -rf ~/shared/$dir
+ls ~/shared
 #find ~/shared/$dir -name '.*.bc' -or -name '*.bc' | xargs rm
 mkdir ~/shared/$dir
 find . -name '.*.bc' | xargs -I{} cp {} ~/shared/$dir

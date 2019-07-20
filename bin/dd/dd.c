@@ -71,11 +71,14 @@ const	u_char	*ctab;		/* conversion table */
 int
 main(int argc, char *argv[])
 {
+	if (pledge("stdio rpath wpath cpath error", NULL) == -1)
+		err(1, "pledge");
 	jcl(argv);
 	setup();
 
 	(void)signal(SIGINFO, summaryx);
 	(void)signal(SIGINT, terminate);
+
 
 	atexit(summary);
 
@@ -85,6 +88,8 @@ main(int argc, char *argv[])
 	}
 
 	dd_close();
+	if (pledge("stdio", NULL) == -1)
+		err(1, "pledge");
 	exit(0);
 }
 
@@ -104,6 +109,7 @@ setup(void)
 
 	if (files_cnt > 1 && !(in.flags & ISTAPE))
 		errx(1, "files is not supported for non-tape devices");
+
 
 	if (out.name == NULL) {
 		/* No way to check for read access here. */
@@ -126,8 +132,9 @@ setup(void)
 			err(1, "%s", out.name);
 	}
 
-	getfdtype(&out);
 
+
+	getfdtype(&out);
 	/*
 	 * Allocate space for the input and output buffers.  If not doing
 	 * record oriented I/O, only need a single buffer.
@@ -149,8 +156,8 @@ setup(void)
 	if (out.offset)
 		pos_out();
 
-	if (pledge("stdio", NULL) == -1)
-		err(1, "pledge");
+	// if (pledge("stdio", NULL) == -1)
+	//	err(1, "pledge");
 
 	/*
 	 * Truncate the output file; ignore errors because it fails on some
